@@ -1,0 +1,18 @@
+---
+apiVersion: kubeadm.k8s.io/v1beta4
+kind: InitConfiguration
+localAPIEndpoint:
+  advertiseAddress: "192.168.0.18"
+  bindPort: 6443
+---
+apiVersion: kubeadm.k8s.io/v1beta4
+kind: ClusterConfiguration
+certificateValidityPeriod: 876000h # 100 years | Default: 365 days * 24 hours = 1 year
+caCertificateValidityPeriod: 963600h # 110 years | Default: 365 days * 24 hours * 10 = 10 years
+controlPlaneEndpoint: "192.168.0.2:7443"
+apiServer:
+  certSANs:
+    - "165.132.131.121"
+  extraArgs:
+    - name: "service-account-max-token-expiration"
+      value: 168h # 1 week
